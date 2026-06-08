@@ -40,6 +40,6 @@ This repository contains:
 
 ## Profiles
 
-- LeetCode: Your Link
-- Codeforces: Your Link
-- CodeChef: Your Link
+- LeetCode: [LeetCode](https://leetcode.com/u/Adarsh1s/)
+- Codeforces: [Codeforces](https://codeforces.com/profile/Adarsh-Singh-)
+
