@@ -1,4 +1,4 @@
-class Solution {
+/*class Solution {
 public:
     void moveZeroes(vector<int>& nums) {
         if (nums.empty()) return;
@@ -18,8 +18,8 @@ public:
         fill(nums.end() - cnt, nums.end(), 0);
 
     }
-};
-/*class Solution {
+};*/
+class Solution {
 public:
     void moveZeroes(vector<int>& nums) {
         int j=0;  // Pointer to place the next non-zero element
@@ -34,4 +34,4 @@ public:
             }
         }
     }
-};*/
+};
