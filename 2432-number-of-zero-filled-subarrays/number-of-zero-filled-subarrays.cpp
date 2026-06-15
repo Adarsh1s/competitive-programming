@@ -9,6 +9,7 @@ public:
                 temp=0;
             }    
         }
-        return ans += ((temp+1)*(temp))/2;
+        ans += ((temp+1)*(temp))/2;
+        return ans;
     }
 };
