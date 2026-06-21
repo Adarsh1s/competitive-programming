@@ -1,6 +1,25 @@
 class Solution {
 public:
     vector<int> singleNumber(vector<int>& nums) {
+        if(nums.size() <=2) return nums;
+        long long mid = 0;
+        for(int x: nums){
+            mid ^= x;
+        }long long middle = mid & (-mid);
+        int first = 0, second = 0;
+        for(int x:nums){
+            if(middle & x) first ^= x;
+            else second ^= x;
+        }
+        return {first,second};
+    }
+
+};
+
+
+/*class Solution {
+public:
+    vector<int> singleNumber(vector<int>& nums) {
         vector<int> ans;
         //int ans = 0;
         if(nums.size() <=2) return nums;
@@ -12,4 +31,4 @@ public:
         }
         return ans;
     }
-};
+};*/
