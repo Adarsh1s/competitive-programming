@@ -1,0 +1,34 @@
+#include <vector>
+#include <climits>
+#include <algorithm>
+
+class Solution {
+public:
+    int thirdMax(std::vector<int>& nums) {
+        // Use long long to handle INT_MIN edge cases safely
+        long long first = LLONG_MIN;
+        long long second = LLONG_MIN;
+        long long third = LLONG_MIN;
+
+        for (int num : nums) {
+            // Skip duplicates of already tracked top 3 values
+            if (num == first || num == second || num == third) {
+                continue;
+            }
+
+            if (num > first) {
+                third = second;
+                second = first;
+                first = num;
+            } else if (num > second) {
+                third = second;
+                second = num;
+            } else if (num > third) {
+                third = num;
+            }
+        }
+
+
+        return (third == LLONG_MIN) ? first : third;
+    }
+};
