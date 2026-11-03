@@ -1,49 +1,51 @@
 class WordDictionary {
-    struct TrieNode {
-        TrieNode* children[26] = {};
-        bool isEnd = false;
-    };
-
-    TrieNode* root;
-
-    bool dfs(TrieNode* node, const string& word, int index) {
-        if (index == (int)word.size()) {
-            return node->isEnd;
-        }
-        char c = word[index];
-        if (c == '.') {
-            // Wildcard: try every existing child
-            for (int i = 0; i < 26; i++) {
-                if (node->children[i] && dfs(node->children[i], word, index + 1)) {
-                    return true;
-                }
-            }
-            return false;
-        } else {
-            // Regular character: follow the specific child
-            TrieNode* child = node->children[c - 'a'];
-            return child && dfs(child, word, index + 1);
-        }
-    }
-
+    WordDictionary* children[26];
+    bool isEnd;
 public:
     WordDictionary() {
-        root = new TrieNode();
+        for(int i = 0;i<26;i++) children[i]=nullptr;
+        isEnd = false;
     }
-
+    
     void addWord(string word) {
-        TrieNode* current = root;
-        for (char c : word) {
-            int idx = c - 'a';
-            if (!current->children[idx]) {
-                current->children[idx] = new TrieNode();
+        WordDictionary* node = this;
+        for(char c: word){
+            int index = c-'a';
+            if(node->children[index] == nullptr){
+                node->children[index] = new WordDictionary;
             }
-            current = current->children[idx];
+            node = node->children[index];
         }
-        current->isEnd = true;
+        node->isEnd = true;
     }
-
+    bool helper(const string& word,int index, WordDictionary* node){
+        for(int i = index;i<word.length();i++){
+            if(word[i]=='.'){
+                for(int j = 0;j<26;j++){
+                    if(node->children[j]!=nullptr){
+                        if(helper(word,i+1,node->children[j])){
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            }
+            else{
+                int idx = word[i]-'a';
+                if(node->children[idx]==nullptr) return false;
+                node = node->children[idx];
+            }
+        }
+        return node!=nullptr && node->isEnd;
+    } 
     bool search(string word) {
-        return dfs(root, word, 0);
+        return helper(word,0,this);
     }
 };
+
+/**
+ * Your WordDictionary object will be instantiated and called as such:
+ * WordDictionary* obj = new WordDictionary();
+ * obj->addWord(word);
+ * bool param_2 = obj->search(word);
+ */
